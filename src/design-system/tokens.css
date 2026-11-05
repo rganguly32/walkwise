@@ -1,0 +1,142 @@
+/*
+ * WalkWise design tokens
+ *
+ * Source: WalkWise Brand Identity guide (colors, typography, logos) and the
+ * WalkWise mobile app screens (sizes, radii, shadows, type scale).
+ * Values marked "extension" are not in the brand guide; they fill gaps the
+ * product needs (status colors, tints, spacing scale).
+ */
+
+:root {
+  /* ---------- Brand primitives (brand guide) ---------- */
+  --ww-white: #ffffff;
+  --ww-navy: #202a56; /* Logo & app icon background, primary surfaces */
+  --ww-red: #f05355; /* "Light Red": mascot, alerts, primary accent */
+
+  /* Navy tints & shades — extension, derived from --ww-navy */
+  --ww-navy-50: #eef0f7;
+  --ww-navy-100: #d6dbec;
+  --ww-navy-200: #aeb6d6;
+  --ww-navy-300: #7f8bb9;
+  --ww-navy-400: #56639a;
+  --ww-navy-500: #3a467b;
+  --ww-navy-600: #2a3566;
+  --ww-navy-700: var(--ww-navy);
+  --ww-navy-800: #18203f;
+  --ww-navy-900: #10152b;
+
+  /* Red tints & shades — extension, derived from --ww-red */
+  --ww-red-50: #fef0f0;
+  --ww-red-100: #fcd9d9;
+  --ww-red-200: #f9b0b1;
+  --ww-red-300: #f58183;
+  --ww-red-400: var(--ww-red);
+  --ww-red-500: #dc3b3e;
+  --ww-red-600: #b92a2d;
+  --ww-red-700: #8f2023;
+
+  /* Neutrals — from app screens */
+  --ww-black: #000000;
+  --ww-gray-50: #f4f5f8;
+  --ww-gray-100: #e9eaef;
+  --ww-gray-200: #d9d9d9; /* report option tiles */
+  --ww-gray-300: #bdbec4;
+  --ww-gray-500: #7a7c85;
+
+  /* Functional — extension */
+  --ww-blue-location: #4482ff; /* "you are here" dot, from app screens */
+  --ww-green-safe: #2e9e6a;
+  --ww-amber-caution: #f2a33a;
+
+  /* ---------- Semantic color roles (use these in components) ---------- */
+  --ww-color-brand: var(--ww-navy);
+  --ww-color-brand-pressed: var(--ww-navy-800);
+  --ww-color-on-brand: var(--ww-white);
+  --ww-color-on-brand-muted: rgba(255, 255, 255, 0.6);
+
+  --ww-color-accent: var(--ww-red);
+  --ww-color-accent-pressed: var(--ww-red-500);
+  --ww-color-on-accent: var(--ww-white);
+
+  --ww-color-surface: var(--ww-white);
+  --ww-color-surface-muted: var(--ww-gray-200);
+  --ww-color-surface-muted-pressed: #cfcfcf;
+  --ww-color-canvas: var(--ww-gray-50);
+
+  --ww-color-text: var(--ww-black);
+  --ww-color-text-muted: rgba(0, 0, 0, 0.6);
+  --ww-color-text-placeholder: rgba(0, 0, 0, 0.45);
+  --ww-color-border: rgba(0, 0, 0, 0.12);
+  --ww-color-focus: var(--ww-navy-300);
+
+  --ww-color-status-safe: var(--ww-green-safe);
+  --ww-color-status-caution: var(--ww-amber-caution);
+  --ww-color-status-alert: var(--ww-red);
+  --ww-color-location: var(--ww-blue-location);
+
+  /* ---------- Typography (brand guide + app screens) ---------- */
+  /* Candara is reserved for the logotype, which ships as an image. */
+  --ww-font-sans: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+
+  --ww-weight-regular: 400; /* body & subtext */
+  --ww-weight-medium: 500; /* tagline, labels */
+  --ww-weight-bold: 700; /* headings, emphasis */
+
+  --ww-line-tight: 1.15;
+  --ww-line-normal: 1.25;
+  --ww-line-relaxed: 1.45;
+
+  /* Type scale: size / weight pairs, named by role */
+  --ww-text-display: 45px; /* campus name on Home hero */
+  --ww-text-title-xl: 30px; /* tagline "Be Safe. Walk Wise." */
+  --ww-text-title-lg: 25px; /* turn-by-turn instruction */
+  --ww-text-title: 22px; /* sheet & section titles */
+  --ww-text-body-lg: 20px; /* search input */
+  --ww-text-body: 17px; /* buttons, body copy */
+  --ww-text-label: 15px; /* tab labels, option tiles */
+  --ww-text-caption: 13px; /* metadata, helper text — extension */
+
+  /* ---------- Spacing (4px base — extension) ---------- */
+  --ww-space-0: 0;
+  --ww-space-1: 4px;
+  --ww-space-2: 8px;
+  --ww-space-3: 12px;
+  --ww-space-4: 16px;
+  --ww-space-5: 20px;
+  --ww-space-6: 24px;
+  --ww-space-8: 32px;
+  --ww-space-10: 40px;
+  --ww-space-12: 48px;
+
+  /* ---------- Radius (app screens) ---------- */
+  --ww-radius-sm: 10px; /* app icon, small chips */
+  --ww-radius-md: 25px; /* option tiles */
+  --ww-radius-lg: 35px; /* cards, banners, sheets */
+  --ww-radius-xl: 40px; /* device frame, search field */
+  --ww-radius-full: 999px; /* pills, circular buttons */
+
+  /* ---------- Elevation (app screens) ---------- */
+  --ww-shadow-sm: -4px 4px 20px rgba(0, 0, 0, 0.25); /* search, floating pills */
+  --ww-shadow-lg: -4px 4px 20px rgba(0, 0, 0, 0.45); /* hero card */
+  --ww-shadow-overlay: 0 8px 24px rgba(0, 0, 0, 0.3); /* toasts */
+
+  /* ---------- Sizing ---------- */
+  --ww-tap-min: 44px;
+  --ww-icon-sm: 24px;
+  --ww-icon-md: 44px; /* tab bar icons */
+  --ww-icon-lg: 48px; /* FAB glyph */
+  --ww-fab-size: 75px;
+  --ww-tabbar-height: 135px;
+
+  /* ---------- Motion ---------- */
+  --ww-duration-fast: 100ms;
+  --ww-duration-base: 200ms;
+  --ww-duration-slow: 250ms;
+  --ww-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* ---------- Layers ---------- */
+  --ww-z-map-overlay: 1;
+  --ww-z-fab: 2;
+  --ww-z-sheet: 3;
+  --ww-z-toast: 10;
+}

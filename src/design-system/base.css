@@ -1,0 +1,88 @@
+/* Global base styles + typography utilities. Requires tokens.css. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--ww-font-sans);
+  color: var(--ww-color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ww-color-focus);
+  outline-offset: 2px;
+}
+
+/* ---------- Typography roles ---------- */
+
+.ww-text-display {
+  font-size: var(--ww-text-display);
+  font-weight: var(--ww-weight-bold);
+  line-height: var(--ww-line-tight);
+}
+
+.ww-text-title-xl {
+  font-size: var(--ww-text-title-xl);
+  font-weight: var(--ww-weight-medium);
+  line-height: var(--ww-line-normal);
+}
+
+.ww-text-title-lg {
+  font-size: var(--ww-text-title-lg);
+  font-weight: var(--ww-weight-regular);
+  line-height: var(--ww-line-normal);
+}
+
+.ww-text-title {
+  font-size: var(--ww-text-title);
+  font-weight: var(--ww-weight-regular);
+  line-height: var(--ww-line-normal);
+}
+
+.ww-text-heading {
+  font-size: var(--ww-text-title);
+  font-weight: var(--ww-weight-bold);
+  line-height: var(--ww-line-normal);
+}
+
+.ww-text-body-lg {
+  font-size: var(--ww-text-body-lg);
+  font-weight: var(--ww-weight-regular);
+  line-height: var(--ww-line-relaxed);
+}
+
+.ww-text-body {
+  font-size: var(--ww-text-body);
+  font-weight: var(--ww-weight-regular);
+  line-height: var(--ww-line-relaxed);
+}
+
+.ww-text-label {
+  font-size: var(--ww-text-label);
+  font-weight: var(--ww-weight-medium);
+  line-height: var(--ww-line-normal);
+}
+
+.ww-text-caption {
+  font-size: var(--ww-text-caption);
+  font-weight: var(--ww-weight-regular);
+  line-height: var(--ww-line-normal);
+  color: var(--ww-color-text-muted);
+}

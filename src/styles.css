@@ -1,0 +1,260 @@
+/*
+ * App layout for the prototype. Visual styling lives in the design system
+ * (src/design-system); this file only places components on each screen.
+ * Positions are taken from the 430×932 iPhone 16 Plus frames in Figma.
+ */
+
+body {
+  background: var(--ww-gray-100);
+}
+
+/* ---------- Device frame ---------- */
+
+.stage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--ww-space-6);
+}
+
+.phone {
+  position: relative;
+  width: 430px;
+  height: 932px;
+  border-radius: var(--ww-radius-xl);
+  overflow: clip;
+  background: var(--ww-color-surface);
+  box-shadow: 0 20px 60px rgba(32, 42, 86, 0.25);
+}
+
+/* On an actual phone, drop the frame and fill the viewport. */
+@media (max-width: 500px) {
+  .stage {
+    padding: 0;
+    display: block;
+  }
+  .phone {
+    width: 100vw;
+    height: 100dvh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+}
+
+/* ---------- Splash ---------- */
+
+.splash {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--ww-color-brand);
+}
+
+/* ---------- Map backgrounds ---------- */
+
+.map {
+  position: absolute;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.map--home {
+  left: -358px;
+  top: -137px;
+  width: 1024px;
+  height: 1108px;
+}
+
+.map--nav {
+  left: -132px;
+  top: 0;
+  width: 754px;
+  height: 932px;
+}
+
+/* ---------- Home ---------- */
+
+.hero {
+  position: absolute;
+  left: 10px;
+  top: 52px;
+  width: 409px;
+  height: 210px;
+  text-align: center;
+}
+
+.hero__tagline {
+  margin: 25px 0 0;
+  line-height: normal;
+}
+
+.hero__campus {
+  margin: 0;
+  font-size: var(--ww-text-display);
+  font-weight: var(--ww-weight-medium);
+  line-height: normal;
+}
+
+.hero__campus strong {
+  font-weight: var(--ww-weight-bold);
+}
+
+.hero__search {
+  position: absolute;
+  left: 17px;
+  top: 138.5px;
+  width: 377px;
+}
+
+.you-dot {
+  position: absolute;
+  left: 193px;
+  top: 406px;
+}
+
+.report-fab {
+  position: absolute;
+  left: 340px;
+  z-index: var(--ww-z-fab);
+  transition: top var(--ww-duration-slow) var(--ww-ease-out);
+}
+
+.app-tabbar {
+  position: absolute;
+  left: 0;
+  top: 817px;
+  width: 100%;
+}
+
+/* ---------- Navigation ---------- */
+
+.direction {
+  position: absolute;
+  left: 26px;
+  top: 47px;
+  width: 378px;
+  height: 164px;
+}
+
+.direction__arrow {
+  position: absolute;
+  left: 46px;
+  top: 38px;
+}
+
+.direction__text {
+  position: absolute;
+  left: 139px;
+  top: 46px;
+  width: 197px;
+  margin: 0;
+  line-height: normal;
+  text-align: center;
+}
+
+.end-walk {
+  position: absolute;
+  left: 26px;
+  top: 732px;
+}
+
+.end-walk__dest {
+  font-weight: var(--ww-weight-regular);
+  opacity: 0.8;
+}
+
+/* ---------- Report sheet ---------- */
+
+.app-sheet {
+  position: absolute;
+  left: 9px;
+  top: 537px;
+  width: 412px;
+  height: 419px;
+  z-index: var(--ww-z-sheet);
+}
+
+.no-ped {
+  width: 44px;
+  height: 44px;
+  padding: 2.75px; /* 6.25% inset from Figma */
+}
+
+.no-ped img {
+  display: block;
+}
+
+.person-icon {
+  position: relative;
+  display: block;
+  width: 56px;
+  height: 56px;
+}
+
+.person-icon__fill {
+  position: absolute;
+  inset: 10.67% 38.89% 12.26% 37.78%;
+}
+
+.person-icon__fill img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.person-icon__outline {
+  position: absolute;
+  inset: 10.67% 38.47% 11.68% 36.63%;
+}
+
+.person-icon__outline img {
+  position: absolute;
+  left: -1.79%;
+  top: -0.57%;
+  width: 103.58%;
+  height: 101.14%;
+  display: block;
+}
+
+/* ---------- Placeholder tabs ---------- */
+
+.placeholder {
+  background: var(--ww-color-canvas);
+  padding: 80px var(--ww-space-8) 0;
+}
+
+.placeholder__title {
+  margin: 0 0 var(--ww-space-3);
+  color: var(--ww-color-brand);
+}
+
+.placeholder__body {
+  margin: 0;
+  color: var(--ww-color-text-muted);
+}
+
+/* ---------- Toast ---------- */
+
+.app-toast {
+  position: absolute;
+  left: 50%;
+  top: 280px;
+  transform: translateX(-50%);
+  z-index: var(--ww-z-toast);
+  animation: app-toast-in var(--ww-duration-base) var(--ww-ease-out);
+}
+
+@keyframes app-toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -8px);
+  }
+}

@@ -1,0 +1,438 @@
+/* WalkWise component styles. Requires tokens.css. */
+
+/* ---------- Logo ---------- */
+
+.ww-logo {
+  display: block;
+  height: auto;
+}
+
+/* Crop the color artwork (801×800 canvas) to the logo bounds. */
+.ww-logo--onLight {
+  position: relative;
+  overflow: hidden;
+}
+
+.ww-logo--wordmark.ww-logo--onLight {
+  aspect-ratio: 712 / 226;
+}
+
+.ww-logo--wordmark.ww-logo--onLight img {
+  position: absolute;
+  width: 112.5%;
+  left: -5.62%;
+  top: -127%;
+}
+
+.ww-logo--mark.ww-logo--onLight {
+  aspect-ratio: 187 / 226;
+}
+
+.ww-logo--mark.ww-logo--onLight img {
+  position: absolute;
+  width: 428.3%;
+  left: -164.2%;
+  top: -127%;
+}
+
+.ww-logo--icon {
+  border-radius: 22%;
+}
+
+/* ---------- Button ---------- */
+
+.ww-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ww-space-2);
+  border-radius: var(--ww-radius-full);
+  font-weight: var(--ww-weight-medium);
+  white-space: nowrap;
+  transition:
+    background var(--ww-duration-base) var(--ww-ease-out),
+    transform var(--ww-duration-fast) var(--ww-ease-out);
+}
+
+.ww-button:active {
+  transform: scale(0.97);
+}
+
+.ww-button:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.ww-button--sm {
+  height: 40px;
+  padding: 0 var(--ww-space-4);
+  font-size: var(--ww-text-label);
+}
+
+.ww-button--md {
+  height: 50px;
+  padding: 0 22px;
+  font-size: var(--ww-text-body);
+}
+
+.ww-button--lg {
+  height: 58px;
+  padding: 0 var(--ww-space-8);
+  font-size: var(--ww-text-body-lg);
+}
+
+.ww-button--primary {
+  background: var(--ww-color-brand);
+  color: var(--ww-color-on-brand);
+}
+
+.ww-button--primary:active {
+  background: var(--ww-color-brand-pressed);
+}
+
+/* White on red is ~3.5:1, so accent text must be "large" (≥19px bold). */
+.ww-button--accent {
+  background: var(--ww-color-accent);
+  color: var(--ww-color-on-accent);
+  font-weight: var(--ww-weight-bold);
+}
+
+.ww-button--accent.ww-button--sm,
+.ww-button--accent.ww-button--md {
+  font-size: 19px;
+}
+
+.ww-button--accent:active {
+  background: var(--ww-color-accent-pressed);
+}
+
+.ww-button--secondary {
+  background: var(--ww-color-surface);
+  color: var(--ww-color-brand);
+  box-shadow: inset 0 0 0 2px var(--ww-color-brand);
+}
+
+.ww-button--ghost {
+  color: var(--ww-color-brand);
+}
+
+.ww-button--ghost:active {
+  background: var(--ww-navy-50);
+}
+
+.ww-button--elevated {
+  box-shadow: var(--ww-shadow-sm);
+}
+
+.ww-button--secondary.ww-button--elevated {
+  box-shadow:
+    inset 0 0 0 2px var(--ww-color-brand),
+    var(--ww-shadow-sm);
+}
+
+.ww-button--block {
+  display: flex;
+  width: 100%;
+}
+
+.ww-button__icon {
+  display: inline-flex;
+}
+
+/* ---------- Icon button ---------- */
+
+.ww-icon-button {
+  display: inline-grid;
+  place-items: center;
+  border-radius: var(--ww-radius-full);
+  flex-shrink: 0;
+  transition:
+    background var(--ww-duration-base) var(--ww-ease-out),
+    transform var(--ww-duration-fast) var(--ww-ease-out);
+}
+
+.ww-icon-button:active {
+  transform: scale(0.94);
+}
+
+.ww-icon-button--fab {
+  width: var(--ww-fab-size);
+  height: var(--ww-fab-size);
+}
+
+.ww-icon-button--fab img {
+  width: var(--ww-icon-lg);
+  height: 47px;
+}
+
+.ww-icon-button--md {
+  width: 48px;
+  height: 48px;
+}
+
+.ww-icon-button--sm {
+  width: 40px;
+  height: 40px;
+}
+
+.ww-icon-button--accent {
+  background: var(--ww-color-accent);
+}
+
+.ww-icon-button--accent:active {
+  background: var(--ww-color-accent-pressed);
+}
+
+.ww-icon-button--brand {
+  background: var(--ww-color-brand);
+}
+
+.ww-icon-button--surface {
+  background: var(--ww-color-surface);
+  box-shadow: var(--ww-shadow-sm);
+}
+
+/* ---------- Card ---------- */
+
+.ww-card {
+  border-radius: var(--ww-radius-lg);
+}
+
+.ww-card--brand {
+  background: var(--ww-color-brand);
+  color: var(--ww-color-on-brand);
+}
+
+.ww-card--accent {
+  background: var(--ww-color-accent);
+  color: var(--ww-color-on-accent);
+}
+
+.ww-card--surface {
+  background: var(--ww-color-surface);
+  color: var(--ww-color-text);
+}
+
+.ww-card--shadow-sm {
+  box-shadow: var(--ww-shadow-sm);
+}
+
+.ww-card--shadow-lg {
+  box-shadow: var(--ww-shadow-lg);
+}
+
+/* ---------- Search field ---------- */
+
+.ww-search {
+  display: flex;
+  align-items: center;
+  height: 40.4px;
+  border-radius: var(--ww-radius-xl);
+  background: var(--ww-color-surface);
+  box-shadow: var(--ww-shadow-sm);
+}
+
+.ww-search__input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  padding: 0 0 0 25px;
+  font: inherit;
+  font-size: var(--ww-text-body-lg);
+  color: var(--ww-color-text);
+}
+
+.ww-search__input::placeholder {
+  color: var(--ww-color-text-placeholder);
+}
+
+.ww-search:focus-within {
+  box-shadow:
+    0 0 0 3px var(--ww-color-focus),
+    var(--ww-shadow-sm);
+}
+
+.ww-search__btn {
+  display: grid;
+  width: 26.8px;
+  height: 26.8px;
+  margin-right: 21px;
+}
+
+.ww-search__btn img {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- Tab bar ---------- */
+
+.ww-tabbar {
+  height: var(--ww-tabbar-height);
+  background: var(--ww-color-brand);
+}
+
+.ww-tabbar__row {
+  display: flex;
+  justify-content: center;
+  gap: var(--ww-space-6);
+  padding-top: var(--ww-space-4);
+}
+
+.ww-tabbar__item {
+  width: 104px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--ww-color-on-brand);
+  font-size: var(--ww-text-label);
+  font-weight: var(--ww-weight-medium);
+  opacity: 0.6;
+  transition: opacity var(--ww-duration-base) var(--ww-ease-out);
+}
+
+.ww-tabbar__item.is-active {
+  opacity: 1;
+}
+
+/* ---------- Bottom sheet ---------- */
+
+.ww-sheet {
+  background: var(--ww-color-surface);
+  border-radius: var(--ww-radius-lg) var(--ww-radius-lg) 0 0;
+  animation: ww-sheet-up var(--ww-duration-slow) var(--ww-ease-out);
+}
+
+@keyframes ww-sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+.ww-sheet__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px 27px 0 32px;
+}
+
+.ww-sheet__title {
+  margin: 0;
+  font-size: var(--ww-text-title);
+  font-weight: var(--ww-weight-regular);
+  line-height: var(--ww-line-normal);
+  color: var(--ww-color-text);
+}
+
+.ww-sheet__close {
+  display: grid;
+  opacity: 0.55;
+}
+
+.ww-sheet__body {
+  padding: 65px 38px var(--ww-space-8);
+}
+
+/* ---------- Option tile ---------- */
+
+.ww-option-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 156px);
+  gap: 27px 24px;
+  justify-content: center;
+}
+
+.ww-option {
+  width: 156px;
+  height: 95px;
+  padding-top: var(--ww-space-3);
+  border-radius: var(--ww-radius-md);
+  background: var(--ww-color-surface-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition:
+    transform var(--ww-duration-fast) var(--ww-ease-out),
+    background var(--ww-duration-base) var(--ww-ease-out);
+}
+
+.ww-option:active {
+  transform: scale(0.97);
+  background: var(--ww-color-surface-muted-pressed);
+}
+
+.ww-option.is-selected {
+  box-shadow: inset 0 0 0 3px var(--ww-color-brand);
+}
+
+.ww-option__label {
+  max-width: 135px;
+  font-size: var(--ww-text-label);
+  line-height: normal;
+  color: var(--ww-color-text);
+  text-align: center;
+}
+
+.ww-option__icon {
+  display: grid;
+  place-items: center;
+}
+
+/* ---------- Toast ---------- */
+
+.ww-toast {
+  max-width: 360px;
+  padding: 14px var(--ww-space-5);
+  border-radius: var(--ww-space-5);
+  background: var(--ww-color-brand);
+  color: var(--ww-color-on-brand);
+  font-size: 16px;
+  text-align: center;
+  box-shadow: var(--ww-shadow-overlay);
+}
+
+/* ---------- Safety badge ---------- */
+
+.ww-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 var(--ww-space-3);
+  border-radius: var(--ww-radius-full);
+  font-size: var(--ww-text-caption);
+  font-weight: var(--ww-weight-medium);
+}
+
+.ww-badge__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.ww-badge--safe {
+  background: #e3f4ec;
+  color: #1e7a50;
+}
+
+.ww-badge--caution {
+  background: #fdf0dc;
+  color: #a1620e;
+}
+
+.ww-badge--alert {
+  background: var(--ww-red-50);
+  color: var(--ww-red-600);
+}
+
+/* ---------- Footpath motif ---------- */
+
+.ww-footpath {
+  height: 10px;
+  background: url('/brand/footpath-1.svg') repeat-x left center / 107px 9.17px;
+}
