@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button, Card, Footpath } from '../design-system'
-import { contactNames, routes, type RouteId, type Share } from '../data/walk'
+import { contactNames, type Route, type Share } from '../data/walk'
 
 const ratings = [
   { id: 'safe', emoji: '😊', label: 'Safe' },
@@ -10,17 +10,16 @@ const ratings = [
 
 export default function Arrived({
   destination,
-  routeId,
+  route,
   share,
   onDone,
 }: {
   destination: string
-  routeId: RouteId
+  route: Route
   share: Share | null
   onDone: () => void
 }) {
   const [rating, setRating] = useState<string | null>(null)
-  const route = routes.find((r) => r.id === routeId)!
 
   return (
     <div className="screen arrived">

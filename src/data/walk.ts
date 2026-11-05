@@ -14,6 +14,8 @@ export type Route = {
   level: 'safe' | 'caution'
   badge: string
   reasons: Reason[]
+  /** How this route compares on time, e.g. "+2 min vs fastest" */
+  note?: string
   coords: LngLat[]
 }
 
@@ -21,14 +23,17 @@ const METERS_PER_MILE = 1609.34
 
 /** Build the two route options for a destination from its real geometry. */
 export function routesFor(place: Place): Route[] {
+  const toMin = (sec: number) => Math.max(1, Math.round(sec / 60))
   const summary = (g: Place['safest']) => ({
-    minutes: Math.max(1, Math.round(g.seconds / 60)),
+    minutes: toMin(g.seconds),
     miles: Math.round((g.meters / METERS_PER_MILE) * 10) / 10,
     coords: g.coords,
   })
+  const extraMin = toMin(place.safest.seconds) - toMin(place.fastest.seconds)
   return [
     {
       id: 'safest',
+      note: extraMin < 1 ? 'Same time as fastest' : `+${extraMin} min vs fastest`,
       name: 'Safest route',
       level: 'safe',
       badge: 'Safest',

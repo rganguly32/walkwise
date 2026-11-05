@@ -26,6 +26,7 @@ export default function RouteCard({
       </div>
       <p className="route-card__meta ww-text-body">
         <strong>{route.minutes} min</strong> · {route.miles} mi
+        {route.note && <span className="route-card__note"> · {route.note}</span>}
       </p>
       <ul className="route-card__reasons">
         {route.reasons.map((r) => (

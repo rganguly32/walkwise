@@ -1,36 +1,49 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { BottomSheet, Button, Card, IconButton } from '../design-system'
 import RouteCard from '../components/RouteCard'
 import ShareSheet from '../components/ShareSheet'
-import { routes, type RouteId, type Share } from '../data/walk'
+import CampusMap, { type MapMarker } from '../components/CampusMap'
+import { start, type Place } from '../data/campus'
+import { routesFor, type RouteId, type Share } from '../data/walk'
 
 export default function RoutePreview({
-  destination,
+  place,
   onBack,
   onStart,
 }: {
-  destination: string
+  place: Place
   onBack: () => void
   onStart: (route: RouteId, share: Share | null) => void
 }) {
   const [selected, setSelected] = useState<RouteId>('safest')
   const [sharing, setSharing] = useState(false)
+  const routes = useMemo(() => routesFor(place), [place])
   const route = routes.find((r) => r.id === selected)!
-  // Draw the unselected route first so the selected one sits on top.
-  const ordered = [...routes].sort((a) => (a.id === selected ? 1 : -1))
+
+  const lines = useMemo(
+    () => routes.map((r) => ({ id: r.id, coords: r.coords, selected: r.id === selected })),
+    [routes, selected],
+  )
+  const markers = useMemo<MapMarker[]>(
+    () => [
+      { id: 'concern', kind: 'concern', at: place.concern, label: 'Reported concern' },
+      ...place.bluePhones.map((at, i) => ({ id: `phone-${i}`, kind: 'phone' as const, at, label: 'Blue-light phone' })),
+      { id: 'dest', kind: 'destination', at: [place.lng, place.lat], label: place.name },
+      { id: 'you', kind: 'you', at: [start.lng, start.lat] },
+    ],
+    [place],
+  )
+  const fitCoords = useMemo(() => routes.flatMap((r) => r.coords), [routes])
 
   return (
     <div className="screen">
-      <img className="map map--preview" src="/assets/home-map.png" alt="Map of Georgia Tech campus" />
-
-      <svg className="route-overlay" viewBox="0 0 430 932" aria-hidden>
-        {ordered.map((r) => (
-          <path key={r.id} d={r.path} className={`route-line${r.id === selected ? ' is-selected' : ''}`} />
-        ))}
-        <circle cx="120" cy="196" r="13" className="dest-pin" />
-        <circle cx="120" cy="196" r="5" fill="#fff" />
-      </svg>
-      <img className="you-dot you-dot--preview" src="/assets/location-dot.svg" alt="Your location" width={45} height={45} />
+      <CampusMap
+        className="route-preview-map"
+        camera={{ type: 'fit', coords: fitCoords }}
+        padding={{ top: 190, bottom: 560, left: 50, right: 50 }}
+        lines={lines}
+        markers={markers}
+      />
 
       <Card tone="surface" elevation="sm" className="trip-card">
         <IconButton tone="plain" size="sm" aria-label="Back" onClick={onBack}>
@@ -45,7 +58,7 @@ export default function RoutePreview({
           </p>
           <p className="trip-card__stop">
             <span className="trip-card__dot trip-card__dot--to" />
-            <strong>{destination}</strong>
+            <strong>{place.name}</strong>
           </p>
         </div>
       </Card>

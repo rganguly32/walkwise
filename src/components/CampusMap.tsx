@@ -10,13 +10,16 @@ export type MapLine = { id: string; coords: LngLat[]; selected?: boolean }
 
 export type MapMarker = {
   id: string
-  kind: 'you' | 'destination' | 'concern' | 'phone'
+  kind: 'you' | 'destination' | 'concern' | 'phone' | 'place'
   at: LngLat
   label?: string
+  /** Which side of a place pin its label sits on */
+  labelSide?: 'left' | 'right'
+  onClick?: () => void
 }
 
 export type Camera =
-  | { type: 'center'; center: LngLat; zoom: number; pitch?: number; bearing?: number }
+  | { type: 'center'; center: LngLat; zoom: number; pitch?: number; bearing?: number; follow?: boolean }
   | { type: 'fit'; coords: LngLat[] }
 
 type CampusMapProps = {
@@ -35,7 +38,7 @@ const BLUE = '#3a5bff'
 
 function markerElement(m: MapMarker) {
   const el = document.createElement('div')
-  el.className = `map-marker map-marker--${m.kind}`
+  el.className = `map-marker map-marker--${m.kind}${m.labelSide === 'left' ? ' map-marker--label-left' : ''}`
   if (m.label) el.title = m.label
   if (m.kind === 'you') {
     const img = document.createElement('img')
@@ -46,7 +49,26 @@ function markerElement(m: MapMarker) {
     el.appendChild(img)
   }
   if (m.kind === 'concern') el.textContent = '!'
+  if (m.kind === 'place' && m.label) {
+    el.innerHTML = '<span class="map-marker__pin"></span><span class="map-marker__label"></span>'
+    el.querySelector('.map-marker__label')!.textContent = m.label
+  }
+  if (m.onClick) {
+    el.setAttribute('role', 'button')
+    el.tabIndex = 0
+    el.addEventListener('click', m.onClick)
+  }
   return el
+}
+
+/** Place markers anchor on their pin (not the label) so the pin sits on the spot. */
+function markerOptions(m: MapMarker): maplibregl.MarkerOptions {
+  const element = markerElement(m)
+  if (m.kind !== 'place') return { element }
+  const PIN_HALF = 7
+  return m.labelSide === 'left'
+    ? { element, anchor: 'right', offset: [PIN_HALF, 0] }
+    : { element, anchor: 'left', offset: [-PIN_HALF, 0] }
 }
 
 function linesToGeoJSON(lines: MapLine[]): GeoJSON.FeatureCollection {
@@ -128,6 +150,8 @@ export default function CampusMap({
         })
       }
       loaded.current = true
+      // Start the attribution collapsed to its (i) button.
+      m.getContainer().querySelector('.maplibregl-ctrl-attrib')?.classList.remove('maplibregl-compact-show')
       applyCamera(m, latest.current.camera, latest.current.padding, false)
     })
 
@@ -156,7 +180,7 @@ export default function CampusMap({
       seen.add(mk.id)
       const existing = markerRefs.current.get(mk.id)
       if (existing) existing.setLngLat(mk.at)
-      else markerRefs.current.set(mk.id, new maplibregl.Marker({ element: markerElement(mk) }).setLngLat(mk.at).addTo(m))
+      else markerRefs.current.set(mk.id, new maplibregl.Marker(markerOptions(mk)).setLngLat(mk.at).addTo(m))
     })
     markerRefs.current.forEach((mk, id) => {
       if (!seen.has(id)) {
@@ -188,7 +212,9 @@ function applyCamera(m: maplibregl.Map, camera: Camera, padding: Partial<Padding
       pitch: camera.pitch ?? 0,
       bearing: camera.bearing ?? 0,
       padding: pad,
-      duration: animate ? 900 : 0,
+      // "follow" cameras update every second, so glide linearly between updates.
+      duration: animate ? (camera.follow ? 1000 : 900) : 0,
+      easing: camera.follow ? (t) => t : undefined,
     })
   }
 }

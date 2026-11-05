@@ -57,29 +57,6 @@ body {
   background: var(--ww-color-brand);
 }
 
-/* ---------- Map backgrounds ---------- */
-
-.map {
-  position: absolute;
-  max-width: none;
-  object-fit: cover;
-  pointer-events: none;
-}
-
-.map--home {
-  left: -358px;
-  top: -137px;
-  width: 1024px;
-  height: 1108px;
-}
-
-.map--nav {
-  left: -132px;
-  top: 0;
-  width: 754px;
-  height: 932px;
-}
-
 /* ---------- Home ---------- */
 
 .hero {
@@ -112,12 +89,6 @@ body {
   left: 17px;
   top: 138.5px;
   width: 377px;
-}
-
-.you-dot {
-  position: absolute;
-  left: 193px;
-  top: 406px;
 }
 
 .report-fab {
@@ -261,48 +232,6 @@ body {
 
 /* ---------- Route preview ---------- */
 
-.map--preview {
-  left: -358px;
-  top: -217px;
-  width: 1024px;
-  height: 1108px;
-}
-
-.route-overlay {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.route-line {
-  fill: none;
-  stroke: var(--ww-gray-500);
-  stroke-width: 6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  opacity: 0.55;
-  transition: stroke var(--ww-duration-base), opacity var(--ww-duration-base);
-}
-
-.route-line.is-selected {
-  stroke: var(--ww-color-brand);
-  stroke-width: 8;
-  opacity: 1;
-  filter: drop-shadow(0 0 2px #fff);
-}
-
-.dest-pin {
-  fill: var(--ww-color-accent);
-  stroke: #fff;
-  stroke-width: 3;
-}
-
-.you-dot--preview {
-  top: 326px;
-}
-
 .trip-card {
   position: absolute;
   left: 16px;
@@ -385,6 +314,12 @@ body {
 
 .route-card__meta {
   margin: var(--ww-space-1) 0 var(--ww-space-2);
+}
+
+.route-card__note {
+  color: var(--ww-green-safe);
+  font-size: var(--ww-text-label);
+  font-weight: var(--ww-weight-medium);
 }
 
 .route-card__reasons {
@@ -682,4 +617,104 @@ body {
 
 .rate-card__note {
   margin: 14px 0 var(--ww-space-4);
+}
+
+/* ---------- Live campus map ---------- */
+
+.campus-map {
+  position: absolute;
+  inset: 0;
+  background: #f2f3f0;
+}
+
+/* Keep the map attribution visible above the overlays on each screen. */
+.campus-map .maplibregl-ctrl-bottom-right {
+  bottom: 0;
+}
+
+.map-home .maplibregl-ctrl-bottom-right {
+  bottom: 135px;
+}
+
+.map-nav .maplibregl-ctrl-bottom-right {
+  bottom: 0;
+}
+
+.route-preview-map .maplibregl-ctrl-bottom-right {
+  bottom: 528px;
+}
+
+.map-marker--you img {
+  display: block;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+
+.map-marker--destination {
+  width: 28px;
+  height: 28px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: var(--ww-color-accent);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.map-marker--concern {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: var(--ww-amber-caution);
+  color: #fff;
+  font-size: 14px;
+  font-weight: var(--ww-weight-bold);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.map-marker--phone {
+  width: 18px;
+  height: 18px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: var(--ww-color-location);
+  box-shadow:
+    0 0 0 4px rgba(68, 130, 255, 0.25),
+    0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.map-marker--place {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.map-marker__pin {
+  width: 14px;
+  height: 14px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: var(--ww-color-brand);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+.map-marker__label {
+  padding: 4px 10px;
+  border-radius: var(--ww-radius-full);
+  background: #fff;
+  color: var(--ww-color-brand);
+  font-size: 13px;
+  font-weight: var(--ww-weight-medium);
+  white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.map-marker--label-left {
+  flex-direction: row-reverse;
+}
+
+.map-marker--place:hover .map-marker__label {
+  background: var(--ww-color-brand);
+  color: #fff;
 }
