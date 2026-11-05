@@ -1,4 +1,6 @@
-// Sample data for the prototype. Nothing here comes from a real routing API.
+// Prototype data: route options, contacts and sharing helpers.
+
+import type { LngLat, Place } from './campus'
 
 export type RouteId = 'safest' | 'fastest'
 
@@ -12,39 +14,44 @@ export type Route = {
   level: 'safe' | 'caution'
   badge: string
   reasons: Reason[]
-  /** SVG path over the 430×932 preview map */
-  path: string
+  coords: LngLat[]
 }
 
-export const routes: Route[] = [
-  {
-    id: 'safest',
-    name: 'Safest route',
-    minutes: 12,
-    miles: 0.6,
-    level: 'safe',
-    badge: 'Safest',
-    reasons: [
-      { tone: 'good', text: 'Well-lit the whole way' },
-      { tone: 'good', text: 'Passes 2 blue-light phones' },
-      { tone: 'good', text: 'Avoids 1 reported concern' },
-    ],
-    path: 'M215 348 L300 348 L300 262 L262 222 L150 222 L120 196',
-  },
-  {
-    id: 'fastest',
-    name: 'Fastest route',
-    minutes: 9,
-    miles: 0.4,
-    level: 'caution',
-    badge: 'Use caution',
-    reasons: [
-      { tone: 'warn', text: 'Poor lighting on 1 block' },
-      { tone: 'warn', text: 'Passes 1 reported concern' },
-    ],
-    path: 'M215 348 L188 300 L160 262 L120 196',
-  },
-]
+const METERS_PER_MILE = 1609.34
+
+/** Build the two route options for a destination from its real geometry. */
+export function routesFor(place: Place): Route[] {
+  const summary = (g: Place['safest']) => ({
+    minutes: Math.max(1, Math.round(g.seconds / 60)),
+    miles: Math.round((g.meters / METERS_PER_MILE) * 10) / 10,
+    coords: g.coords,
+  })
+  return [
+    {
+      id: 'safest',
+      name: 'Safest route',
+      level: 'safe',
+      badge: 'Safest',
+      reasons: [
+        { tone: 'good', text: 'Well-lit the whole way' },
+        { tone: 'good', text: `Passes ${place.bluePhones.length} blue-light phones` },
+        { tone: 'good', text: 'Avoids 1 reported concern' },
+      ],
+      ...summary(place.safest),
+    },
+    {
+      id: 'fastest',
+      name: 'Fastest route',
+      level: 'caution',
+      badge: 'Use caution',
+      reasons: [
+        { tone: 'warn', text: 'Poor lighting on 1 block' },
+        { tone: 'warn', text: 'Passes 1 reported concern' },
+      ],
+      ...summary(place.fastest),
+    },
+  ]
+}
 
 export type Contact = { id: string; name: string; relation: string; initials: string }
 
